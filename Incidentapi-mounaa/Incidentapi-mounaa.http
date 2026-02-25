@@ -1,0 +1,6 @@
+@Incidentapi_mounaa_HostAddress = http://localhost:5154
+
+GET {{Incidentapi_mounaa_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

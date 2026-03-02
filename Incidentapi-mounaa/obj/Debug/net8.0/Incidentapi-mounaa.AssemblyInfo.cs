@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Incidentapi-mounaa")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14b120b9557b445118c9c71d4500439e68475dcc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Incidentapi-mounaa")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Incidentapi-mounaa")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

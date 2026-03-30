@@ -13,6 +13,9 @@ namespace Incidentapi_mounaa.Controllers
     {
         private readonly IncidentsDbContext _context;
 
+        private static readonly string[] AllowedSeverities = {"LOW", "MEDIUM","HIGH", "CRITICAL" };
+        private static readonly string[] AllowedStatuses = { "OPEN", "IN_PROGRESS","RESOLVED" };
+
         public IncidentsDbController(IncidentsDbContext context)
         {
             _context = context;
@@ -57,6 +60,10 @@ namespace Incidentapi_mounaa.Controllers
         {
             if (ModelState.IsValid)
             {
+                incident.Severity = incident.Severity.ToUpper();
+                incident.Status = "IN_PROGRESS";
+                incident.CreatedAt = DateTime.Now;
+
                 _context.Add(incident);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

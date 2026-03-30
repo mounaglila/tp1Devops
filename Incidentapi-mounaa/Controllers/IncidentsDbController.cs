@@ -61,7 +61,11 @@ namespace Incidentapi_mounaa.Controllers
             if (ModelState.IsValid)
             {
                 incident.Severity = incident.Severity.ToUpper();
+<<<<<<< HEAD
                 incident.Status = "IN_PROGRESss";
+=======
+                incident.Status = "OPEN";
+>>>>>>> conflit
                 incident.CreatedAt = DateTime.Now;
 
                 _context.Add(incident);

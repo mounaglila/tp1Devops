@@ -9,11 +9,11 @@ using Incidentapi_mounaa.Models;
 
 namespace Incidentapi_mounaa.Controllers
 {
-    public class IncidentsController : Controller
+    public class IncidentsDbController : Controller
     {
         private readonly IncidentsDbContext _context;
 
-        public IncidentsController(IncidentsDbContext context)
+        public IncidentsDbController(IncidentsDbContext context)
         {
             _context = context;
         }
@@ -131,6 +131,34 @@ namespace Incidentapi_mounaa.Controllers
             }
 
             return View(incident);
+        }
+
+        // GET: api/IncidentsDb/filter-by-status
+        [HttpGet("getbystatusasync/{status}")]
+        public async Task<ActionResult<IEnumerable<Incident>>> FilterByStatus([FromQuery] string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+                return BadRequest("Le paramètre 'status' est requis.");
+
+            var filtered = await _context.Incidents
+                .Where(i => i.Status.ToUpper() == status.ToUpper())
+                .ToListAsync();
+
+            return Ok(filtered);
+        }
+
+        // GET: api/IncidentsDb/filter-by-severity
+        [HttpGet("getbyseverityasync/{severity}")]
+        public async Task<ActionResult<IEnumerable<Incident>>> FilterBySeverity([FromQuery] string severity)
+        {
+            if (string.IsNullOrWhiteSpace(severity))
+                return BadRequest("Le paramètre 'severity' est requis.");
+
+            var filtered = await _context.Incidents
+                .Where(i => i.Severity.ToUpper() == severity.ToUpper())
+                .ToListAsync();
+
+            return Ok(filtered);
         }
 
         // POST: Incidents/Delete/5

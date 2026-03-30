@@ -61,7 +61,7 @@ namespace Incidentapi_mounaa.Controllers
             if (ModelState.IsValid)
             {
                 incident.Severity = incident.Severity.ToUpper();
-                incident.Status = "IN_PROGRESS";
+                incident.Status = "IN_PROGRESss";
                 incident.CreatedAt = DateTime.Now;
 
                 _context.Add(incident);

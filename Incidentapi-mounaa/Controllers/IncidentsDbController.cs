@@ -61,6 +61,7 @@ namespace Incidentapi_mounaa.Controllers
             if (ModelState.IsValid)
             {
                 incident.Severity = incident.Severity.ToUpper();
+
                 incident.Status = "OPEN";
                 incident.CreatedAt = DateTime.Now;
 
@@ -186,6 +187,11 @@ namespace Incidentapi_mounaa.Controllers
         private bool IncidentExists(int id)
         {
             return _context.Incidents.Any(e => e.Id == id);
+        }
+
+        public async Task GetIncidents()
+        {
+            throw new NotImplementedException();
         }
     }
 }

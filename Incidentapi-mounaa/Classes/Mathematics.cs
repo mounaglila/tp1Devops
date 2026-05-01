@@ -10,16 +10,15 @@
         {
             if (n < 0)
             {
-                return 0;
-                //throw new ArgumentException("Input must be a non-negative integer.", nameof(n));
+                throw new ArgumentException("Input must be a non-negative integer.", nameof(n));
+                //on remet le throw, plus le return 0
             }
-            else
             if (n == 0 || n == 1)
             {
-                return n;
+                return 1; //return 1 au lieu de return n (car 0! = 1)
             }
             int result = 1;
-            for (int i = 2; i <= n; i++)
+            for (int i = 2; i <= n; i++) 
             {
                 result *= i;
             }

@@ -20,6 +20,67 @@ namespace Incidentapi_mounaa.Controllers
         {
             _context = context;
         }
+        // GET: api/IncidentsDb/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Incident>> GetIncident(int id)
+        {
+            var incident = await _context.Incidents.FindAsync(id);
+            if (incident == null)
+                return NotFound();
+            return incident;
+        }
+
+        // POST: api/IncidentsDb
+        [HttpPost]
+        public async Task<ActionResult<Incident>> PostIncident(Incident incident)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            incident.CreatedAt = DateTime.Now;
+            _context.Incidents.Add(incident);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetIncident), new { id = incident.Id }, incident);
+        }
+
+        // PUT: api/IncidentsDb/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutIncident(int id, Incident incident)
+        {
+            if (id != incident.Id)
+                return BadRequest();
+
+            _context.Entry(incident).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!IncidentExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
+
+            return NoContent();
+        }
+
+        // DELETE: api/IncidentsDb/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteIncident(int id)
+        {
+            var incident = await _context.Incidents.FindAsync(id);
+            if (incident == null)
+                return NotFound();
+
+            _context.Incidents.Remove(incident);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
 
         // GET: Incidents
         public async Task<IActionResult> Index()
@@ -157,7 +218,7 @@ namespace Incidentapi_mounaa.Controllers
 
         // GET: api/IncidentsDb/filter-by-severity
         [HttpGet("getbyseverityasync/{severity}")]
-        public async Task<ActionResult<IEnumerable<Incident>>> FilterBySeverity([FromQuery] string severity)
+        public async Task<IActionResult> FilterBySeverity(string severity)
         {
             if (string.IsNullOrWhiteSpace(severity))
                 return BadRequest("Le paramètre 'severity' est requis.");
@@ -189,9 +250,11 @@ namespace Incidentapi_mounaa.Controllers
             return _context.Incidents.Any(e => e.Id == id);
         }
 
-        public async Task GetIncidents()
+        [HttpGet]
+        public async Task<ActionResult<List<Incident>>> GetIncidents()
         {
-            throw new NotImplementedException();
+            var incidents = await _context.Incidents.ToListAsync();
+            return incidents; 
         }
     }
 }
